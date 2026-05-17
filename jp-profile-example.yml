@@ -1,0 +1,114 @@
+jurisdiction_code: "JP"
+profile_status: "pilot"
+profile_maintainer: "MWPTS pilot team / local Japanese reviewers"
+currency_code: "JPY"
+minimum_wage_rule_enabled: "YES"
+minimum_wage_table:
+  source: "https://www.mhlw.go.jp/content/11200000/001571192.pdf"
+  version: "2025-10 / Reiwa 7 MHLW regional minimum wage list"
+  entries:
+    - location_code: "JP-01"
+      location_name: "Hokkaido"
+      hourly_minimum_wage: 1075
+      effective_from: "2025-10-04"
+    - location_code: "JP-04"
+      location_name: "Miyagi"
+      hourly_minimum_wage: 1038
+      effective_from: "2025-10-04"
+    - location_code: "JP-08"
+      location_name: "Ibaraki"
+      hourly_minimum_wage: 1074
+      effective_from: "2025-10-12"
+    - location_code: "JP-11"
+      location_name: "Saitama"
+      hourly_minimum_wage: 1141
+      effective_from: "2025-11-01"
+    - location_code: "JP-12"
+      location_name: "Chiba"
+      hourly_minimum_wage: 1140
+      effective_from: "2025-10-03"
+    - location_code: "JP-13"
+      location_name: "Tokyo"
+      hourly_minimum_wage: 1226
+      effective_from: "2025-10-03"
+    - location_code: "JP-14"
+      location_name: "Kanagawa"
+      hourly_minimum_wage: 1225
+      effective_from: "2025-10-04"
+    - location_code: "JP-22"
+      location_name: "Shizuoka"
+      hourly_minimum_wage: 1097
+      effective_from: "2025-11-01"
+    - location_code: "JP-23"
+      location_name: "Aichi"
+      hourly_minimum_wage: 1140
+      effective_from: "2025-10-18"
+    - location_code: "JP-26"
+      location_name: "Kyoto"
+      hourly_minimum_wage: 1122
+      effective_from: "2025-11-21"
+    - location_code: "JP-27"
+      location_name: "Osaka"
+      hourly_minimum_wage: 1177
+      effective_from: "2025-10-16"
+    - location_code: "JP-28"
+      location_name: "Hyogo"
+      hourly_minimum_wage: 1116
+      effective_from: "2025-10-04"
+    - location_code: "JP-34"
+      location_name: "Hiroshima"
+      hourly_minimum_wage: 1085
+      effective_from: "2025-11-01"
+    - location_code: "JP-40"
+      location_name: "Fukuoka"
+      hourly_minimum_wage: 1057
+      effective_from: "2025-11-16"
+    - location_code: "JP-47"
+      location_name: "Okinawa"
+      hourly_minimum_wage: 1023
+      effective_from: "2025-12-01"
+excluded_allowance_rules:
+  - overtime_premium_pay
+  - night_premium_pay
+  - holiday_premium_pay
+  - commuting_allowance
+  - family_allowance
+premium_pay_rules:
+  overtime_rate: 0.25
+  night_rate: 0.25
+  holiday_rate: 0.35
+fixed_overtime_handling:
+  enabled: true
+  default_review_result: "GREY"
+  required_fields:
+    - has_fixed_overtime_pay
+    - fixed_overtime_amount
+    - fixed_overtime_hours_included
+    - fixed_overtime_breakdown_available
+deduction_rules:
+  high_deduction_threshold: 0.3
+  review_threshold: 0.3  # Deprecated alias; use high_deduction_threshold in new implementations.
+  denominator: "base_wage"
+  categories:
+    - housing
+    - meals
+    - tools_uniform
+    - recruitment_related
+    - debt_repayment
+tolerance_amount: 10.0
+support_contacts:
+  - name: "Labour Standards Inspection Office"
+    url: "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/location.html"
+  - name: "Houterasu / legal consultation"
+    url: "https://www.houterasu.or.jp/"
+language_pack_codes:
+  - ja-easy
+  - vi
+  - en
+native_review_notice:
+  ko: "Korean translations are draft and require native-speaker review before worker-facing release."
+  zh-TW: "Traditional Chinese translations are draft and require native-speaker review before worker-facing release."
+metadata:
+  framework: "MWPTS Core v0.2.1"
+  author: "Kunihisa Koyama (Kuni)"
+  official_repository: "https://github.com/aburaage666-alt/mwpts-core"
