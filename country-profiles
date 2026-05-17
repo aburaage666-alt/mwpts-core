@@ -1,0 +1,51 @@
+MWPTS Country Profile Template v0.2
+Template for JP / KR / TW / SG / VN and future jurisdictions
+
+0. Project Metadata and Authority
+Item	Value
+Framework Name	Migrant Worker Payslip Transparency Standard (MWPTS)
+Current Version	Core v0.2 (Pilot Draft - May 2026)
+Author / Creator	Kunihisa Koyama (Kuni)
+Official Repository	https://github.com/aburaage666-alt/mwpts-core
+Official Contact	https://www.linkedin.com/in/kuni-koyama-6566b7105/
+Authority Notice	All official updates, JSON schemas, and country profile templates are maintained exclusively at the source repository above. Any fork, implementation, or derivative work should link back to this original source to maintain data integrity.
+
+1. Purpose
+This template allows each jurisdiction to implement MWPTS Core without importing another country’s labour law or administrative structure. Each country profile defines local wage rules, deduction categories, support contacts, languages, and implementation notes.
+2. Required profile fields
+Field	Type	Required	Instruction
+jurisdiction_code	enum	yes	JP, KR, TW, SG, VN or another jurisdiction code.
+currency_code	enum	yes	Currency used in payslip amounts.
+minimum_wage_rule_enabled	YES/NO	yes	NO when the jurisdiction has no general statutory minimum wage rule suitable for Core screening.
+minimum_wage_table	array/object	conditional	Regional, sectoral, or national wage values maintained by local experts.
+excluded_allowance_rules	array	recommended	Allowances excluded from minimum wage test.
+premium_pay_rules	object	recommended	Overtime, night, and holiday premium pay rules where applicable.
+deduction_review_threshold	decimal	recommended	Review threshold such as 0.30. This is not a legal limit unless the profile states so.
+tolerance_amount	decimal	recommended	Amount used to avoid false positives from rounding.
+support_contacts	array	recommended	Worker-facing consultation channels.
+language_pack_codes	array	recommended	Languages used for worker-facing explanations.
+profile_maintainer	string	yes	Organization or experts maintaining the profile.
+profile_status	enum	yes	template, draft, pilot, validated, deprecated.
+
+3. Five-country starting matrix
+Profile	Primary role	Implementation note
+JP	Domestic pilot and reference implementation	LINE, Excel MVP, support agencies, labour professionals.
+KR	Korea EPS-compatible local profile	KakaoTalk bot or NGO/administrative support tools can implement local profile.
+TW	Traditional Chinese and migrant-worker profile	Web application and labour bureau/broker-facing transparency tools.
+SG	Itemised payslip and deduction transparency profile	Focus on payslip itemisation and worker explanation rather than general minimum wage screening.
+VN	Language pack and future domestic profile	Vietnamese language pack for destination countries; domestic profile can be added by local experts.
+
+4. Governance
+Country profiles should be maintained by local experts. MWPTS Core should not present sample profile data as official legal data. Public releases must label each profile as template, draft, pilot, or validated.
+10. Licensing, Attribution, and Derivative Implementation Rules
+10.1 Licensing and attribution
+This specification, including the core data schema, risk-screening algorithms, and multilingual intent framework, is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). Reusers must provide attribution, link to the original source, indicate changes where applicable, and retain copyright and license notices.
+10.2 UI attribution for MWPTS-based implementations
+Any software, smartphone application, chatbot, web form, or payroll system that claims to be MWPTS-based or MWPTS-conformant should display the following attribution and active hyperlink within a user-accessible interface such as the About screen, system footer, main menu, or help page.
+Required Wording	Link Destination
+Powered by MWPTS Core v0.2 Protocol. Designed by Kunihisa Koyama (Kuni). Official Specification & Source: https://github.com/aburaage666-alt/mwpts-core	Official Repository: https://github.com/aburaage666-alt/mwpts-core / Official Contact: https://www.linkedin.com/in/kuni-koyama-6566b7105/
+
+This UI attribution requirement is a project conformance rule for claiming MWPTS-based or MWPTS-conformant implementation status. It is not intended to impose additional restrictions beyond CC BY 4.0 for ordinary reuse of the licensed materials.
+10.3 Derivative works and naming policy
+Modified core screening algorithms or non-verified jurisdiction rule packs must not be labeled as “Official MWPTS”. Developers should name their systems as derivative works, such as “MWPTS-Based Custom Tool by [Developer Name]”, and clearly include a standard disclaimer that the tool is not a definitive legal determination.
+Disclaimer: This material is a pilot transparency framework to help workers and support organizations understand payslip items and identify issues that may require further review. It is not legal advice, legal judgment, administrative finding, or certification.
