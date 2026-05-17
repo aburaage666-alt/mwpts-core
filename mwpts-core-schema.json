@@ -1,0 +1,197 @@
+	
+$schema	"https://json-schema.org/draft/2020-12/schema"
+$id	"https://github.com/aburaage666-alt/mwpts-core/blob/main/core/mwpts-core-schema.json"
+title	"MWPTS Core v0.2.1 Payslip Data Schema"
+description	"Open data layer for migrant worker payslip transparency. Pilot draft. Not legal advice. This schema defines core data fields only; country-specific legal rules belong in jurisdiction profiles."
+type	"object"
+additionalProperties	true
+required	
+0	"case_id"
+1	"jurisdiction_code"
+2	"currency_code"
+3	"employment_type_code"
+4	"source_type"
+5	"personal_data_stored"
+6	"hours_regular"
+7	"base_wage"
+8	"wage_for_minimum_wage_test"
+9	"gross_wage_total"
+10	"net_wage_paid"
+properties	
+case_id	
+type	"string"
+description	"Random case ID. Do not use names or official ID numbers for basic screening."
+jurisdiction_code	
+type	"string"
+pattern	"^[A-Z]{2}$"
+description	"ISO 3166-1 alpha-2 jurisdiction code. Open string to allow new country profiles without schema revision."
+location_code	
+type	"string"
+description	"Country profile location code, e.g. JP-13."
+currency_code	
+type	"string"
+pattern	"^[A-Z]{3}$"
+employment_type_code	
+type	"string"
+enum	
+0	"HOURLY"
+1	"MONTHLY"
+2	"DAILY"
+3	"PIECE_RATE"
+4	"MIXED"
+5	"UNKNOWN"
+description	"Employment type code. Enum values are canonical uppercase tokens. Implementations SHOULD normalize user/API input to uppercase before validation."
+x-case-policy	"UPPERCASE_CANONICAL_VALUES"
+x-normalization-note	"Incoming values such as 'hourly' or 'monthly' may be uppercased by the application layer before schema validation."
+source_type	
+type	"string"
+enum	
+0	"API_PAYROLL"
+1	"CSV_PAYROLL"
+2	"EMPLOYER_SYSTEM"
+3	"PDF"
+4	"OCR"
+5	"MANUAL"
+6	"WORKER_SELF_REPORT"
+7	"OTHER"
+personal_data_stored	
+type	"boolean"
+description	"True only if identifiable worker data is stored beyond local/session processing."
+pay_period_start	
+type	"string"
+format	"date"
+pay_period_end	
+type	"string"
+format	"date"
+hours_regular	
+type	"number"
+minimum	0
+hours_overtime	
+type	"number"
+minimum	0
+hours_night	
+type	"number"
+minimum	0
+hours_holiday	
+type	"number"
+minimum	0
+base_wage	
+type	"number"
+excluded_allowances_total	
+type	"number"
+default	0
+wage_for_minimum_wage_test	
+type	"number"
+description	"Wage amount per hour used by the jurisdiction profile for the minimum wage review. Required for R-01."
+gross_wage_total	
+type	"number"
+net_wage_paid	
+type	"number"
+has_fixed_overtime_pay	
+type	"string"
+enum	
+0	"YES"
+1	"NO"
+2	"UNKNOWN"
+fixed_overtime_amount	
+type	"number"
+fixed_overtime_hours_included	
+type	"number"
+fixed_overtime_breakdown_available	
+type	"string"
+enum	
+0	"YES"
+1	"NO"
+2	"UNKNOWN"
+deductions	
+type	"array"
+items	
+type	"object"
+required	
+0	"deduction_category"
+1	"deduction_amount"
+2	"deduction_authorization_status"
+properties	
+deduction_category	
+type	"string"
+deduction_amount	
+type	"number"
+deduction_authorization_status	
+type	"string"
+enum	
+0	"STATUTORY"
+1	"CONTRACT"
+2	"AGREEMENT"
+3	"UNKNOWN"
+worker_understands	
+type	"string"
+enum	
+0	"YES"
+1	"NO"
+2	"UNKNOWN"
+deduction_id	
+type	"string"
+description	"Optional local identifier for the deduction item."
+deduction_name_raw	
+type	"string"
+description	"Optional raw label exactly as shown on the payslip."
+additionalProperties	true
+description	"Optional deductions array. The field MAY be omitted or set to an empty array [] when no deductions are present or no deduction data has been collected. If a deduction object is included, the required fields inside that object MUST be present."
+default	[]
+minItems	0
+risk_results	
+type	"array"
+items	
+type	"object"
+required	
+0	"risk_code"
+1	"severity"
+2	"confidence"
+properties	
+risk_code	
+type	"string"
+severity	
+type	"string"
+enum	
+0	"GREEN"
+1	"YELLOW"
+2	"RED"
+3	"GREY"
+confidence	
+type	"string"
+enum	
+0	"HIGH"
+1	"MEDIUM"
+2	"LOW"
+reason_code	
+type	"string"
+rule_version	
+type	"string"
+ocr_confidence_score	
+type	"number"
+minimum	0.0JS:0
+maximum	1.0JS:1
+description	"OCR confidence score from 0.0 to 1.0. Required only when source_type is OCR or OCR-derived."
+x-field-name-policy	
+canonical_hours_field	"hours_regular"
+deprecated_aliases	
+regular_hours	"hours_regular"
+x-official_repository	"https://github.com/aburaage666-alt/mwpts-core"
+x-official_contact	"https://www.linkedin.com/in/kuni-koyama-6566b7105/"
+x-author	"Kunihisa Koyama (Kuni)"
+allOf	
+0	
+if	
+properties	
+source_type	
+const	"OCR"
+required	
+0	"source_type"
+then	
+required	
+0	"ocr_confidence_score"
+x-implementation-notes	
+deductions_empty_array_allowed	true
+enum_values_uppercase	true
+ocr_confidence_score_range	"0.0-1.0"
+country_specific_rules	"Use jurisdiction profiles; do not hard-code country legal rules into the core schema."
